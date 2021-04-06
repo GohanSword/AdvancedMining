@@ -1,0 +1,5 @@
+name: AdvancedMining
+version: ${project.version}
+main: fr.gohansword.advancedmining.AdvancedMining
+api-version: 1.16
+authors: [ GohanSword ]
