@@ -1,5 +1,7 @@
 package Listeners;
 
+import Utils.ItemsManager;
+import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -15,9 +17,7 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BlockBreakE implements Listener {
-    private final List<ItemStack> items = Arrays.asList(new ItemStack(Material.DIAMOND, 5), new ItemStack(Material.GOLD_INGOT, 4), new ItemStack(Material.IRON_INGOT, 3), new ItemStack(Material.STONE, 2), new ItemStack(Material.DIRT));
-    private final List<ItemStack> ore = Arrays.asList(new ItemStack(Material.DIAMOND_ORE, 5), new ItemStack(Material.GOLD_ORE, 4), new ItemStack(Material.IRON_ORE, 3), new ItemStack(Material.EMERALD_ORE, 2), new ItemStack(Material.COAL_ORE), new ItemStack(Material.REDSTONE_ORE), new ItemStack(Material.LAPIS_ORE));
-
+    private final List<ItemStack> items = Arrays.asList(new ItemsManager().diamant, new ItemsManager().or, new ItemsManager().emeraude, new ItemsManager().fer, new ItemsManager().charbon);
 
     @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
@@ -31,9 +31,29 @@ public class BlockBreakE implements Listener {
         if (event.isCancelled())
             return;
         if (material.equals(Material.DIAMOND_ORE)) {
-            ItemStack loot = items.get(ThreadLocalRandom.current().nextInt(items.size()));
-            player.getInventory().addItem(loot);
-            player.sendMessage("§cVous avez reçu" + loot);
+            int min = 1;
+            int max = 100;
+            int random_int = (int) Math.floor(Math.random() * (max - min + 1) + min);
+            player.sendMessage("§c" + random_int);
+
+            if (random_int > 95) {
+                ItemStack loot = new ItemsManager().diamant;
+                // ItemStack loot = items.get(ThreadLocalRandom.current().nextInt());
+
+                player.getInventory().addItem(loot);
+                player.sendMessage("§cVous avez reçu un diamant raffiné");
+                return;
+            }
+
+            if (random_int > 85) {
+                ItemStack loot = new ItemsManager().emeraude;
+                // ItemStack loot = items.get(ThreadLocalRandom.current().nextInt());
+
+
+                player.getInventory().addItem(loot);
+                player.sendMessage("§cVous avez reçu un emeraude raffiné");
+                return;
+            }
         }
     }
 }
